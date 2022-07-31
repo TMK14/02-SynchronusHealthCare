@@ -14,8 +14,14 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import java.awt.event.ActionListener;
+import java.nio.file.FileSystem;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class Homepage extends JFrame {
 
@@ -47,29 +53,19 @@ public class Homepage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(70, 130, 180));
-		panel.setBounds(0, 0, 638, 90);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Welcome to Vaccine Management");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setForeground(Color.ORANGE);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(101, 25, 426, 37);
-		panel.add(lblNewLabel);
+		setUndecorated(true);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(244, 164, 96));
-		panel_1.setBounds(298, 89, 340, 342);
+		panel_1.setForeground(new Color(224, 255, 255));
+		panel_1.setBackground(new Color(153, 180, 209));
+		panel_1.setBounds(304, 0, 350, 470);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JButton Login = new JButton("LOGIN");
+		Login.setForeground(new Color(224, 255, 255));
+		Login.setBounds(44, 329, 128, 48);
+		panel_1.add(Login);
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage loginPage = new LoginPage();
@@ -77,14 +73,16 @@ public class Homepage extends JFrame {
 				setVisible(false);
 			}
 		});
-		Login.setBorder(new CompoundBorder(new CompoundBorder(null, new CompoundBorder()), new CompoundBorder(null, new CompoundBorder())));
+		Login.setBorder(UIManager.getBorder("Button.border"));
 		Login.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		Login.setBackground(Color.GREEN);
+		Login.setBackground(new Color(153, 50, 204));
 		Login.setBorderPainted(false);
-		Login.setBounds(27, 192, 128, 48);
-		panel_1.add(Login);
 		
 		JButton Clear = new JButton("REGISTER");
+		Clear.setBorder(new LineBorder(null, 3, true));
+		Clear.setBorderPainted(false);
+		Clear.setBounds(198, 330, 128, 48);
+		panel_1.add(Clear);
 		Clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrationForm rgForm = new RegistrationForm();
@@ -92,21 +90,39 @@ public class Homepage extends JFrame {
 				setVisible(false);
 			}
 		});
-		Clear.setBackground(Color.DARK_GRAY);
-		Clear.setBorderPainted(false);
-		Clear.setForeground(Color.WHITE);
-		Clear.setFont(new Font("Tahoma", Font.BOLD, 16));
-		Clear.setBounds(202, 193, 128, 48);
-		panel_1.add(Clear);
+		Clear.setBackground(new Color(0, 204, 0));
+		Clear.setForeground(new Color(224, 255, 255));
+		Clear.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 89, 297, 342);
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
+		JButton btnNewButton = new JButton("X");
+		btnNewButton.setBounds(302, 0, 48, 29);
+		panel_1.add(btnNewButton);
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		btnNewButton.setBackground(new Color(255, 51, 51));
+		btnNewButton.setBorderPainted(false);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\tusha\\Pictures\\Vaccine.jpg"));
-		lblNewLabel_1.setBounds(0, 0, 297, 342);
-		panel_2.add(lblNewLabel_1);
+		JLabel lblNewLabel_1 = new JLabel("<html>\r\n<style>\r\np{text-align: center;\r\nline-height:2;\r\n}\r\n\r\n</style>\r\n<p> TIME </p>\r\n<br>\r\n<p>TO</p>\r\n<br>\r\n<p> VACCINATE </p>\r\n</html>");
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 28));
+		lblNewLabel_1.setForeground(new Color(0, 0, 102));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(32, 82, 281, 190);
+		panel_1.add(lblNewLabel_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 304, 470);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\tusha\\Desktop\\Vaccination_Hommepage.jpg"));
+		lblNewLabel.setBounds(0, 0, 304, 470);
+		panel.add(lblNewLabel);
 	}
 }
