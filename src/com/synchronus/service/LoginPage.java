@@ -24,12 +24,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.JSeparator;
+import rojerusan.RSButtonPane;
+import rojerusan.RSMetroTextPlaceHolderBeanInfo;
+import rojerusan.RSMetroTextPlaceHolder;
+import rojerusan.RSPasswordTextPlaceHolder;
+import javax.swing.border.MatteBorder;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import rojerusan.RSMaterialButtonRectangle;
+import rojerusan.RSLabelVerticalD;
 
 public class LoginPage extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField Username;
-	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -65,67 +72,21 @@ public class LoginPage extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 0, 314, 388);
-		panel.setBackground(new Color(255, 218, 185));
+		panel.setBackground(new Color(0, 112, 192));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\tusha\\Pictures\\Login.png"));
-		lblNewLabel.setBounds(83, 160, 128, 85);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\tusha\\Downloads\\user (1).png"));
+		lblNewLabel.setBounds(86, 139, 128, 128);
 		panel.add(lblNewLabel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(314, 0, 419, 388);
-		panel_1.setBackground(SystemColor.activeCaption);
+		panel_1.setBackground(new Color(255, 255, 255));
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		
-		Username = new JTextField();
-		Username.setBackground(SystemColor.menu);
-		Username.setBorder(new EmptyBorder(0, 0, 0, 0));
-		Username.setHorizontalAlignment(SwingConstants.CENTER);
-		Username.setToolTipText("");
-		Username.setBounds(210, 118, 151, 29);
-		
-		panel_1.add(Username);
-		Username.setColumns(10);
-		
-		JButton btnNewButton = new JButton("LOGIN");
-		btnNewButton.setBorder(new LineBorder(new Color(240, 240, 240), 3));
-		btnNewButton.setBackground(new Color(0, 255, 0));
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBounds(44, 274, 142, 35);
-		panel_1.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("FORGOT PASSWORD");
-		
-		btnNewButton_1.setBackground(new Color(255, 0, 51));
-		btnNewButton_1.setBorderPainted(false);
-		btnNewButton_1.setBounds(219, 274, 142, 35);
-		panel_1.add(btnNewButton_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("Enter Username");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(38, 118, 137, 29);
-		panel_1.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("Enter Password");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_1.setBounds(38, 193, 137, 29);
-		panel_1.add(lblNewLabel_1_1);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBackground(SystemColor.menu);
-		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
-		passwordField.setBounds(210, 195, 151, 29);
-		panel_1.add(passwordField);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBackground(new Color(0, 0, 0));
-		separator.setBounds(210, 171, 151, 2);
-		panel_1.add(separator);
 		
 		JButton btnNewButton_2 = new JButton("X");
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -139,5 +100,57 @@ public class LoginPage extends JFrame {
 		btnNewButton_2.setBackground(new Color(255, 51, 51));
 		btnNewButton_2.setBounds(371, 0, 48, 29);
 		panel_1.add(btnNewButton_2);
+		
+		RSPasswordTextPlaceHolder passwordTextPlaceHolder = new RSPasswordTextPlaceHolder();
+		passwordTextPlaceHolder.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 112, 192)));
+		passwordTextPlaceHolder.setPhColor(new Color(0, 0, 0));
+		passwordTextPlaceHolder.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		passwordTextPlaceHolder.setPlaceholder("Enter Password");
+		passwordTextPlaceHolder.setBounds(93, 198, 250, 35);
+		panel_1.add(passwordTextPlaceHolder);
+		
+		RSMetroTextPlaceHolder metroTextPlaceHolder = new RSMetroTextPlaceHolder();
+		metroTextPlaceHolder.setPhColor(new Color(0, 0, 0));
+		metroTextPlaceHolder.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		metroTextPlaceHolder.setPlaceholder("Enter Username");
+		metroTextPlaceHolder.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 112, 192)));
+		metroTextPlaceHolder.setBounds(93, 124, 250, 42);
+		panel_1.add(metroTextPlaceHolder);
+		
+		RSMaterialButtonRectangle mtrlbtnrctnglLogin = new RSMaterialButtonRectangle();
+		
+		mtrlbtnrctnglLogin.setText("LOGIN");
+		mtrlbtnrctnglLogin.setBackground(new Color(0, 112, 192));
+		mtrlbtnrctnglLogin.setBounds(93, 260, 102, 47);
+		panel_1.add(mtrlbtnrctnglLogin);
+		
+		RSMaterialButtonRectangle mtrlbtnrctnglSignIn = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglSignIn.setText("SIGN IN");
+		mtrlbtnrctnglSignIn.setBackground(new Color(0, 112, 192));
+		mtrlbtnrctnglSignIn.setBounds(221, 260, 102, 47);
+		panel_1.add(mtrlbtnrctnglSignIn);
+		
+		JLabel forgotPassword = new JLabel("Forgot Passowrd?");
+		forgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		forgotPassword.setBounds(150, 328, 127, 20);
+		forgotPassword.setForeground(new Color(0, 112, 192));
+		panel_1.add(forgotPassword);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\tusha\\Downloads\\id-card (1).png"));
+		lblNewLabel_1.setBounds(37, 139, 32, 32);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("");
+		lblNewLabel_1_1.setIcon(new ImageIcon("C:\\Users\\tusha\\Downloads\\padlock.png"));
+		lblNewLabel_1_1.setBounds(37, 201, 32, 32);
+		panel_1.add(lblNewLabel_1_1);
+		
+		JLabel loginPageHeadingLabel = new JLabel("SYNCHRONUS");
+		loginPageHeadingLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+		loginPageHeadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		loginPageHeadingLabel.setBounds(70, 46, 273, 35);
+		loginPageHeadingLabel.setForeground(new Color(0 , 112 ,192));
+		panel_1.add(loginPageHeadingLabel);
 	}
 }

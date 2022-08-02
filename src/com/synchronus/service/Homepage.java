@@ -22,6 +22,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import rojerusan.RSMaterialButtonRectangle;
+import java.awt.Component;
 
 public class Homepage extends JFrame {
 
@@ -48,54 +50,49 @@ public class Homepage extends JFrame {
 	 */
 	public Homepage() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 654, 470);
+		setBounds(100, 100, 743, 408);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(0, 112, 192), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setUndecorated(true);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(new Color(224, 255, 255));
-		panel_1.setBackground(new Color(153, 180, 209));
-		panel_1.setBounds(304, 0, 350, 470);
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(0, 0, 743, 408);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton Login = new JButton("LOGIN");
-		Login.setForeground(new Color(224, 255, 255));
-		Login.setBounds(44, 329, 128, 48);
-		panel_1.add(Login);
-		Login.addActionListener(new ActionListener() {
+		RSMaterialButtonRectangle mtrlbtnrctnglRegister = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglRegister.setBounds(554, 317, 102, 47);
+		panel_1.add(mtrlbtnrctnglRegister);
+		mtrlbtnrctnglRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrationForm registrationForm = new RegistrationForm();
+				registrationForm.setVisible(true);
+				setVisible(false);
+			}
+		});
+		mtrlbtnrctnglRegister.setText("REGISTER");
+		mtrlbtnrctnglRegister.setBackground(new Color(100, 149, 237));
+		
+		RSMaterialButtonRectangle mtrlbtnrctnglLogin = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglLogin.setBounds(407, 317, 102, 47);
+		mtrlbtnrctnglLogin.setBackground(new Color(0,112,192));
+		panel_1.add(mtrlbtnrctnglLogin);
+		mtrlbtnrctnglLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage loginPage = new LoginPage();
 				loginPage.setVisible(true);
 				setVisible(false);
 			}
 		});
-		Login.setBorder(UIManager.getBorder("Button.border"));
-		Login.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		Login.setBackground(new Color(153, 50, 204));
-		Login.setBorderPainted(false);
-		
-		JButton Clear = new JButton("REGISTER");
-		Clear.setBorder(new LineBorder(null, 3, true));
-		Clear.setBorderPainted(false);
-		Clear.setBounds(198, 330, 128, 48);
-		panel_1.add(Clear);
-		Clear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegistrationForm rgForm = new RegistrationForm();
-				rgForm.setVisible(true);
-				setVisible(false);
-			}
-		});
-		Clear.setBackground(new Color(0, 204, 0));
-		Clear.setForeground(new Color(224, 255, 255));
-		Clear.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		mtrlbtnrctnglLogin.setText("LOGIN");
+		mtrlbtnrctnglLogin.setBackground(new Color(100, 149, 237));
 		
 		JButton btnNewButton = new JButton("X");
-		btnNewButton.setBounds(302, 0, 48, 29);
+		btnNewButton.setBounds(695, 0, 48, 29);
 		panel_1.add(btnNewButton);
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -107,22 +104,30 @@ public class Homepage extends JFrame {
 		btnNewButton.setBackground(new Color(255, 51, 51));
 		btnNewButton.setBorderPainted(false);
 		
-		JLabel lblNewLabel_1 = new JLabel("<html>\r\n<style>\r\np{text-align: center;\r\nline-height:2;\r\n}\r\n\r\n</style>\r\n<p> TIME </p>\r\n<br>\r\n<p>TO</p>\r\n<br>\r\n<p> VACCINATE </p>\r\n</html>");
-		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 28));
-		lblNewLabel_1.setForeground(new Color(0, 0, 102));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(32, 82, 281, 190);
+		JLabel loginPageHeadingLabel = new JLabel("SYNCHRONUS");
+		loginPageHeadingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		loginPageHeadingLabel.setForeground(new Color(0, 112, 192));
+		loginPageHeadingLabel.setFont(new Font("Segoe UI", Font.BOLD, 48));
+		loginPageHeadingLabel.setBounds(368, 59, 336, 47);
+		panel_1.add(loginPageHeadingLabel);
+		
+		JLabel lblNewLabel = new JLabel("\"WE TAKE CARE\"");
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+		lblNewLabel.setBounds(440, 277, 205, 29);
+		lblNewLabel.setForeground(new Color(0 , 112 ,192));
+		panel_1.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\tusha\\Downloads\\medical-team.png"));
+		lblNewLabel_1.setBounds(470, 128, 128, 128);
 		panel_1.add(lblNewLabel_1);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 304, 470);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\tusha\\Desktop\\Vaccination_Hommepage.jpg"));
-		lblNewLabel.setBounds(0, 0, 304, 470);
-		panel.add(lblNewLabel);
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setBackground(new Color(255, 255, 255));
+		backgroundImage.setBorder(new LineBorder(new Color(0, 112, 192)));
+		backgroundImage.setIcon(new ImageIcon("C:\\Users\\tusha\\Pictures\\Vaccine Project\\adult-children-hands-holding-paper-family-cutout_49149-1061.jpg"));
+		backgroundImage.setBounds(0, 0, 743, 408);
+		panel_1.add(backgroundImage);
 	}
 }

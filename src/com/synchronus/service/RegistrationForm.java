@@ -1,14 +1,13 @@
 package com.synchronus.service;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Label;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -17,17 +16,23 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
-import javax.swing.ImageIcon;
+
+import javax.swing.ButtonGroup;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
+import rojerusan.RSButtonMetro;
+import rojerusan.RSMaterialButtonRectangle;
 
 public class RegistrationForm extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField firstName;
+	private JTextField contactNo;
+	private JTextField emailID;
+	private JTextField lastName;
 
 	/**
 	 * Launch the application.
@@ -53,17 +58,20 @@ public class RegistrationForm extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 112, 192), 2));
 		panel.setForeground(SystemColor.textHighlightText);
-		panel.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
+		panel.setBackground(SystemColor.menu);
 		panel.setBounds(0, 0, 848, 493);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		ButtonGroup g1 = new ButtonGroup();
+		
 		JLabel lblNewLabel = new JLabel("REGISTRATION");
-		lblNewLabel.setForeground(new Color(148, 0, 211));
-		lblNewLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+		lblNewLabel.setForeground(new Color(0, 112, 192));
+		lblNewLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 24));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(347, 11, 162, 39);
+		lblNewLabel.setBounds(318, 11, 196, 39);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("First Name:");
@@ -71,44 +79,44 @@ public class RegistrationForm extends JFrame {
 		lblNewLabel_1.setBounds(10, 76, 80, 23);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
-		textField.setBounds(10, 110, 114, 23);
-		panel.add(textField);
-		textField.setColumns(10);
+		firstName = new JTextField();
+		firstName.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
+		firstName.setBounds(10, 127, 114, 29);
+		panel.add(firstName);
+		firstName.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Contact No.");
 		lblNewLabel_1_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(10, 180, 93, 23);
 		panel.add(lblNewLabel_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
-		textField_1.setColumns(10);
-		textField_1.setBounds(10, 214, 114, 23);
-		panel.add(textField_1);
+		contactNo = new JTextField();
+		contactNo.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
+		contactNo.setColumns(10);
+		contactNo.setBounds(10, 232, 114, 29);
+		panel.add(contactNo);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Email ID:");
 		lblNewLabel_1_2.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNewLabel_1_2.setBounds(206, 180, 80, 23);
 		panel.add(lblNewLabel_1_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), UIManager.getBorder("Button.border")));
-		textField_2.setColumns(10);
-		textField_2.setBounds(206, 214, 183, 23);
-		panel.add(textField_2);
+		emailID = new JTextField();
+		emailID.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), UIManager.getBorder("Button.border")));
+		emailID.setColumns(10);
+		emailID.setBounds(206, 232, 183, 29);
+		panel.add(emailID);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Last Name:");
 		lblNewLabel_1_3.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblNewLabel_1_3.setBounds(206, 76, 80, 23);
 		panel.add(lblNewLabel_1_3);
 		
-		textField_3 = new JTextField();
-		textField_3.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
-		textField_3.setColumns(10);
-		textField_3.setBounds(206, 110, 124, 23);
-		panel.add(textField_3);
+		lastName = new JTextField();
+		lastName.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2, true), UIManager.getBorder("Button.border")));
+		lastName.setColumns(10);
+		lastName.setBounds(206, 127, 114, 29);
+		panel.add(lastName);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 97, 1, 2);
@@ -116,40 +124,18 @@ public class RegistrationForm extends JFrame {
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Gender:");
 		lblNewLabel_1_4.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblNewLabel_1_4.setBounds(10, 288, 80, 23);
+		lblNewLabel_1_4.setBounds(10, 272, 80, 23);
 		panel.add(lblNewLabel_1_4);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("M");
-		rdbtnNewRadioButton.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		rdbtnNewRadioButton.setBorder(UIManager.getBorder("Button.border"));
-		rdbtnNewRadioButton.setForeground(new Color(65, 105, 225));
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbtnNewRadioButton.setBounds(10, 324, 39, 23);
-		panel.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnF = new JRadioButton("F");
-		rdbtnF.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		rdbtnF.setForeground(new Color(65, 105, 225));
-		rdbtnF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbtnF.setBounds(65, 324, 38, 23);
-		panel.add(rdbtnF);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("T");
-		rdbtnNewRadioButton_1.setBackground(UIManager.getColor("InternalFrame.inactiveTitleBackground"));
-		rdbtnNewRadioButton_1.setForeground(new Color(65, 105, 225));
-		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbtnNewRadioButton_1.setBounds(121, 324, 38, 23);
-		panel.add(rdbtnNewRadioButton_1);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("Address:");
 		lblNewLabel_1_5.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblNewLabel_1_5.setBounds(206, 288, 80, 23);
+		lblNewLabel_1_5.setBounds(206, 272, 80, 23);
 		panel.add(lblNewLabel_1_5);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), UIManager.getBorder("Button.border")));
-		textArea.setBounds(206, 324, 183, 75);
-		panel.add(textArea);
+		JTextArea address = new JTextArea();
+		address.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), UIManager.getBorder("Button.border")));
+		address.setBounds(206, 324, 183, 75);
+		panel.add(address);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBackground(new Color(0, 0, 0));
@@ -173,38 +159,30 @@ public class RegistrationForm extends JFrame {
 		
 		JSeparator separator_1_4 = new JSeparator();
 		separator_1_4.setBackground(Color.BLACK);
-		separator_1_4.setBounds(10, 309, 93, 2);
+		separator_1_4.setBounds(10, 294, 93, 2);
 		panel.add(separator_1_4);
 		
 		JSeparator separator_1_5 = new JSeparator();
 		separator_1_5.setBackground(Color.BLACK);
-		separator_1_5.setBounds(206, 309, 93, 2);
+		separator_1_5.setBounds(206, 294, 93, 2);
 		panel.add(separator_1_5);
 		
-		JButton btnNewButton = new JButton("SUBMIT");
-		btnNewButton.setForeground(new Color(255, 250, 250));
-		btnNewButton.setBackground(new Color(0, 255, 127));
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBorder(UIManager.getBorder("Button.border"));
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
-		btnNewButton.setBounds(22, 444, 102, 23);
-		panel.add(btnNewButton);
+		JLabel contactNoError = new JLabel("*Incorrect No.");
+		contactNoError.setVisible(false);
+		contactNoError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contactNoError.setForeground(Color.RED);
+		contactNoError.setBounds(39, 214, 85, 14);
+		panel.add(contactNoError);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 848, 493);
+		setUndecorated(true);
 		
-		JButton btnClear = new JButton("CLEAR");
-		btnClear.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnClear.setForeground(new Color(255, 250, 250));
-		btnClear.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
-		btnClear.setBorderPainted(false);
-		btnClear.setBorder(UIManager.getBorder("Button.border"));
-		btnClear.setBackground(new Color(128, 0, 128));
-		btnClear.setBounds(206, 444, 102, 23);
-		panel.add(btnClear);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\tusha\\Pictures\\Vaccine Project\\Registration_Page.jpg"));
-		lblNewLabel_2.setBounds(463, 82, 331, 318);
-		panel.add(lblNewLabel_2);
+		JLabel emailError = new JLabel("*Invalid Email");
+		emailError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		emailError.setForeground(Color.RED);
+		emailError.setVisible(false);
+		emailError.setBounds(318, 214, 71, 14);
+		panel.add(emailError);
 		
 		JButton btnNewButton_2 = new JButton("X");
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -218,8 +196,181 @@ public class RegistrationForm extends JFrame {
 		btnNewButton_2.setBackground(new Color(255, 51, 51));
 		btnNewButton_2.setBounds(800, 0, 48, 29);
 		panel.add(btnNewButton_2);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 848, 493);
-		setUndecorated(true);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 1, true), UIManager.getBorder("Button.border")));
+		
+		dateChooser.setBounds(450, 127, 141, 29);
+		panel.add(dateChooser);
+		
+		JLabel lblNewLabel_1_3_1 = new JLabel("DOB:");
+		lblNewLabel_1_3_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblNewLabel_1_3_1.setBounds(450, 76, 80, 23);
+		panel.add(lblNewLabel_1_3_1);
+		
+		JSeparator separator_1_1_1 = new JSeparator();
+		separator_1_1_1.setBackground(Color.BLACK);
+		separator_1_1_1.setBounds(450, 97, 93, 2);
+		panel.add(separator_1_1_1);
+		
+		JRadioButton maleRButton = new JRadioButton("Male");
+		maleRButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		g1.add(maleRButton);
+		maleRButton.setBounds(10, 318, 109, 23);
+		panel.add(maleRButton);
+		
+		JRadioButton femaleRButton = new JRadioButton("Female");
+		femaleRButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		g1.add(femaleRButton);
+		femaleRButton.setBounds(10, 340, 109, 23);
+		panel.add(femaleRButton);
+		
+		JRadioButton transRButton = new JRadioButton("Trans");
+		transRButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		g1.add(transRButton);
+		transRButton.setBounds(10, 362, 109, 23);
+		panel.add(transRButton);
+		
+		JLabel firstNameError = new JLabel("*Enter First Name");
+		firstNameError.setVisible(false);
+		firstNameError.setForeground(Color.RED);
+		firstNameError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		firstNameError.setBounds(39, 110, 93, 14);
+		panel.add(firstNameError);
+		
+		JLabel lastNameError = new JLabel("*Enter Last Name");
+		lastNameError.setVisible(false);
+		lastNameError.setForeground(Color.RED);
+		lastNameError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lastNameError.setBounds(229, 110, 85, 14);
+		panel.add(lastNameError);
+		
+		JLabel genderError = new JLabel("*Choose a Gender.");
+		genderError.setVisible(false);
+		genderError.setForeground(Color.RED);
+		genderError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		genderError.setBounds(41, 306, 102, 14);
+		panel.add(genderError);
+		
+		JLabel addressError = new JLabel("*Enter a Address.");
+		addressError.setVisible(false);
+		addressError.setForeground(Color.RED);
+		addressError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		addressError.setBounds(296, 309, 93, 14);
+		panel.add(addressError);
+		
+		JLabel dateError = new JLabel("*Select a Date");
+		dateError.setVisible(false);
+		dateError.setForeground(Color.RED);
+		dateError.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		dateError.setBounds(506, 110, 85, 14);
+		panel.add(dateError);
+		
+		RSMaterialButtonRectangle mtrlbtnrctnglSubmit = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean f1 , f2 ,f3 , f4 , f5 , f6 , f7;
+				if (firstName.getText().equals("")) {
+					firstNameError.setVisible(true);
+					f3 = false;
+				}else {
+					firstNameError.setVisible(false);
+					f3 = true;
+				}
+				
+				if (lastName.getText().equals("")) {
+					lastNameError.setVisible(true);
+					f4 = false;
+				}else {
+					lastNameError.setVisible(false);
+					f4 = true;
+				}
+				
+				if (address.getText().equals("")) {
+					addressError.setVisible(true);
+					f5 = false;
+				}else {
+					addressError.setVisible(false);
+					f5 = true;
+				}
+				
+				if (!maleRButton.isSelected()) {
+					genderError.setVisible(true);
+					f6 = true;
+				}else {
+					genderError.setVisible(false);
+					f6 = false;
+				}
+				if (!femaleRButton.isSelected()) {
+					genderError.setVisible(true);
+					f6 = true;
+				}else {
+					genderError.setVisible(false);
+					f6 = false;
+				}
+				if (!transRButton.isSelected()) {
+					genderError.setVisible(true);
+					f6 = true;
+				}else {
+					genderError.setVisible(false);
+					f6 = false;
+				}
+				if (((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()){
+					dateError.setVisible(true);
+					f7 = true;
+				} else {
+					dateError.setVisible(false);
+					f7 = false;
+					
+				}
+				
+				
+				Pattern pattern = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+				Matcher matcher = pattern.matcher(contactNo.getText());
+				if (!(matcher.find()&&matcher.group().equals(contactNo.getText()))) {
+					
+					contactNoError.setVisible(true);
+					f1 = false;;
+				} else {
+					contactNoError.setVisible(false);
+					f1 = true;
+				}
+				
+				pattern = Pattern.compile("[a-zA-Z||0-9]{3,20}@[A-Za-z]{3,10}.(com|in)");
+				matcher = pattern.matcher(emailID.getText());
+				
+				if (!(matcher.find()&&matcher.group().equals(emailID.getText()))) {
+					
+					emailError.setVisible(true);
+					f2 = false;;
+				} else {
+					contactNoError.setVisible(false);
+					f2 = true;
+				}
+				if (f1 && f2 && f3 && f4 && f5 && f6 && f7) {
+					LoginPage loginPage = new LoginPage();
+					loginPage.setVisible(true);
+					setVisible(false);
+				}
+			}
+		});
+		mtrlbtnrctnglSubmit.setText("SUBMIT");
+		mtrlbtnrctnglSubmit.setBounds(31, 422, 102, 45);
+		panel.add(mtrlbtnrctnglSubmit);
+		
+		RSMaterialButtonRectangle mtrlbtnrctnglClear = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglClear.setText("CLEAR");
+		mtrlbtnrctnglClear.setBounds(172, 422, 102, 45);
+		panel.add(mtrlbtnrctnglClear);
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
 	}
 }
