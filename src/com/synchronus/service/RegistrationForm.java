@@ -56,6 +56,7 @@ public class RegistrationForm extends JFrame {
 	private String addreString = null;
 	private String passwordString = null;
 	private int rowCount;
+	private JTextField firstName;
 
 	/**
 	 * Launch the application.
@@ -81,7 +82,7 @@ public class RegistrationForm extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
+		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.textHighlight));
 		panel.setForeground(SystemColor.textHighlight);
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
 		panel.setBounds(0, 0, 848, 493);
@@ -95,7 +96,7 @@ public class RegistrationForm extends JFrame {
 		lblNewLabel.setForeground(new Color(0, 112, 192));
 		lblNewLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 34));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(233, 12, 351, 53);
+		lblNewLabel.setBounds(235, 12, 351, 53);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("First Name:");
@@ -111,7 +112,8 @@ public class RegistrationForm extends JFrame {
 		panel.add(lblNewLabel_1_1);
 		
 		contactNo = new JTextField();
-		contactNo.setBorder(new LineBorder(new Color(0, 120, 215), 2));
+		contactNo.setForeground(SystemColor.textHighlight);
+		contactNo.setBorder(new LineBorder(SystemColor.textHighlight));
 		contactNo.setColumns(10);
 		contactNo.setBounds(37, 232, 172, 29);
 		panel.add(contactNo);
@@ -119,13 +121,14 @@ public class RegistrationForm extends JFrame {
 		JLabel lblNewLabel_1_2 = new JLabel("Email ID:");
 		lblNewLabel_1_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_1_2.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblNewLabel_1_2.setBounds(325, 180, 80, 23);
+		lblNewLabel_1_2.setBounds(641, 272, 80, 23);
 		panel.add(lblNewLabel_1_2);
 		
 		emailID = new JTextField();
-		emailID.setBorder(new LineBorder(SystemColor.textHighlight, 2));
+		emailID.setForeground(SystemColor.textHighlight);
+		emailID.setBorder(new LineBorder(SystemColor.textHighlight));
 		emailID.setColumns(10);
-		emailID.setBounds(325, 232, 172, 29);
+		emailID.setBounds(641, 324, 172, 29);
 		panel.add(emailID);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Last Name:");
@@ -135,7 +138,8 @@ public class RegistrationForm extends JFrame {
 		panel.add(lblNewLabel_1_3);
 		
 		lastName = new JTextField();
-		lastName.setBorder(new LineBorder(SystemColor.textHighlight, 2));
+		lastName.setForeground(SystemColor.textHighlight);
+		lastName.setBorder(new LineBorder(SystemColor.textHighlight));
 		lastName.setColumns(10);
 		lastName.setBounds(325, 127, 172, 29);
 		panel.add(lastName);
@@ -157,7 +161,8 @@ public class RegistrationForm extends JFrame {
 		panel.add(lblNewLabel_1_5);
 		
 		JTextArea address = new JTextArea();
-		address.setBorder(new LineBorder(SystemColor.textHighlight, 2));
+		address.setForeground(SystemColor.textHighlight);
+		address.setBorder(new LineBorder(SystemColor.textHighlight));
 		address.setBounds(325, 324, 172, 75);
 		panel.add(address);
 		
@@ -181,7 +186,7 @@ public class RegistrationForm extends JFrame {
 		emailError.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		emailError.setForeground(Color.RED);
 		emailError.setVisible(false);
-		emailError.setBounds(325, 214, 71, 14);
+		emailError.setBounds(641, 306, 71, 14);
 		panel.add(emailError);
 		
 		JButton btnNewButton_2 = new JButton("X");
@@ -199,7 +204,7 @@ public class RegistrationForm extends JFrame {
 		
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.getCalendarButton().setBorder(new LineBorder(new Color(0, 120, 215)));
-		dateChooser.setBorder(new LineBorder(SystemColor.textHighlight, 2));
+		dateChooser.setBorder(new LineBorder(new Color(0, 120, 215)));
 		
 		dateChooser.setBounds(641, 127, 172, 29);
 		panel.add(dateChooser);
@@ -270,32 +275,33 @@ public class RegistrationForm extends JFrame {
 		panel.add(dateError);
 		
 		JLabel passwordError = new JLabel("*Enter a Password");
+		passwordError.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		passwordError.setVisible(false);
 		passwordError.setForeground(Color.RED);
-		passwordError.setBounds(641, 214, 97, 14);
+		passwordError.setBounds(325, 214, 123, 14);
 		panel.add(passwordError);
 		
 		JLabel confirmPasswordError = new JLabel("*Password doesn't match");
 		confirmPasswordError.setVisible(false);
 		confirmPasswordError.setForeground(Color.RED);
-		confirmPasswordError.setBounds(641, 306, 141, 14);
+		confirmPasswordError.setBounds(641, 214, 141, 14);
 		panel.add(confirmPasswordError);
 		
 		RSPasswordTextPlaceHolder password = new RSPasswordTextPlaceHolder();
-		password.setBorder(new LineBorder(SystemColor.textHighlight, 2));
-		password.setBounds(642, 230, 172, 29);
+		password.setBorder(new LineBorder(new Color(0, 120, 215)));
+		password.setBounds(326, 230, 172, 29);
 		panel.add(password);
-
-		RSMetroTextPlaceHolder firstName = new RSMetroTextPlaceHolder();
-		firstName.setBackground(SystemColor.controlLtHighlight);
-		firstName.setBorderColor(SystemColor.textHighlight);
+		
+		firstName = new JTextField();
+		firstName.setForeground(SystemColor.textHighlight);
+		firstName.setColumns(10);
 		firstName.setBorder(new LineBorder(SystemColor.textHighlight));
-		firstName.setBounds(37, 125, 172, 29);
+		firstName.setBounds(37, 127, 172, 29);
 		panel.add(firstName);
 		
 		RSPasswordTextPlaceHolder confirmPassword = new RSPasswordTextPlaceHolder();
-		confirmPassword.setBorder(new LineBorder(SystemColor.textHighlight, 2));
-		confirmPassword.setBounds(641, 324, 172, 29);
+		confirmPassword.setBorder(new LineBorder(new Color(0, 120, 215)));
+		confirmPassword.setBounds(641, 230, 172, 29);
 		panel.add(confirmPassword);
 		
 		RSMaterialButtonRectangle mtrlbtnrctnglSubmit = new RSMaterialButtonRectangle();
@@ -446,13 +452,13 @@ public class RegistrationForm extends JFrame {
 		JLabel lblNewLabel_1_1_1 = new JLabel("Password:");
 		lblNewLabel_1_1_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_1_1_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblNewLabel_1_1_1.setBounds(641, 180, 93, 23);
+		lblNewLabel_1_1_1.setBounds(325, 180, 93, 23);
 		panel.add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Confirm Password:");
 		lblNewLabel_1_1_1_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_1_1_1_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblNewLabel_1_1_1_1.setBounds(641, 272, 141, 23);
+		lblNewLabel_1_1_1_1.setBounds(641, 180, 141, 23);
 		panel.add(lblNewLabel_1_1_1_1);
 		
 		JSeparator separator_1_1 = new JSeparator();
@@ -470,7 +476,7 @@ public class RegistrationForm extends JFrame {
 		JSeparator separator_1_3 = new JSeparator();
 		separator_1_3.setForeground(SystemColor.activeCaption);
 		separator_1_3.setBackground(SystemColor.textHighlight);
-		separator_1_3.setBounds(325, 201, 172, 2);
+		separator_1_3.setBounds(641, 293, 172, 2);
 		panel.add(separator_1_3);
 		
 		JSeparator separator_1_4 = new JSeparator();
@@ -494,13 +500,13 @@ public class RegistrationForm extends JFrame {
 		JSeparator separator_1_7 = new JSeparator();
 		separator_1_7.setForeground(SystemColor.activeCaption);
 		separator_1_7.setBackground(SystemColor.textHighlight);
-		separator_1_7.setBounds(641, 201, 172, 2);
+		separator_1_7.setBounds(325, 201, 172, 2);
 		panel.add(separator_1_7);
 		
 		JSeparator separator_1_8 = new JSeparator();
 		separator_1_8.setForeground(SystemColor.activeCaption);
 		separator_1_8.setBackground(SystemColor.textHighlight);
-		separator_1_8.setBounds(641, 293, 172, 2);
+		separator_1_8.setBounds(641, 201, 172, 2);
 		panel.add(separator_1_8);
 		
 		

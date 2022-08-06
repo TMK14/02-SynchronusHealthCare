@@ -162,6 +162,13 @@ public class LoginPage extends JFrame {
 		panel_1.add(mtrlbtnrctnglLogin);
 		
 		RSMaterialButtonRectangle mtrlbtnrctnglSignIn = new RSMaterialButtonRectangle();
+		mtrlbtnrctnglSignIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrationForm registrationForm = new RegistrationForm();
+				registrationForm.setVisible(true);
+				setVisible(false);
+			}
+		});
 		mtrlbtnrctnglSignIn.setText("SIGN IN");
 		mtrlbtnrctnglSignIn.setBackground(new Color(0, 112, 192));
 		mtrlbtnrctnglSignIn.setBounds(221, 260, 102, 47);
