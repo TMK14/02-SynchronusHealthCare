@@ -1,11 +1,13 @@
 package com.synchronus.dao;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookAppiontment {
 	private static String driverName = "com.mysql.jdbc.Driver";
@@ -16,6 +18,7 @@ public class BookAppiontment {
 	private int rowCount = 0;
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
+	Statement statement = null;
 	public boolean getConnection() throws ClassNotFoundException, SQLException,Exception {
 		Class.forName(driverName);
 		connection = DriverManager.getConnection(url,userName,password);
