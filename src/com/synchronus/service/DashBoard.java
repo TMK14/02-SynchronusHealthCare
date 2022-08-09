@@ -134,6 +134,14 @@ public class DashBoard extends JFrame {
 		
 		
 		JLabel lblNewLabel_2 = new JLabel("Schedule Vaccination");
+		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ScheduleVaccination scheduleVaccination = new ScheduleVaccination();
+				scheduleVaccination.setVisible(true);
+				setVisible(false);
+			}
+		});
 		lblNewLabel_2.setBounds(10, 0, 200, 40);
 		panel_3.add(lblNewLabel_2);
 		lblNewLabel_2.setIcon(new ImageIcon(DashBoard.class.getResource("/AdminIcons/appointment (1).png")));

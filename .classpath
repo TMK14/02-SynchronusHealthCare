@@ -9,5 +9,8 @@
 	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="RojeruSan.parte1.jar"/>
 	<classpathentry kind="lib" path="E:/Software/MySQL/mysql-connector-java-5.1.6.jar"/>
+	<classpathentry kind="lib" path="FJCalendar.jar"/>
+	<classpathentry kind="lib" path="calendar-2.1.0.jar"/>
+	<classpathentry kind="lib" path="RSCalendar.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

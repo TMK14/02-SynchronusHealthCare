@@ -41,6 +41,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import rojerusan.RSMaterialButtonRectangle;
 import rojerusan.RSLabelVerticalD;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginPage extends JFrame {
 
@@ -77,6 +79,7 @@ public class LoginPage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
 		JPanel panel = new JPanel();
@@ -179,10 +182,23 @@ public class LoginPage extends JFrame {
 		lblNewLabel_1.setBounds(37, 139, 32, 32);
 		panel_1.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("");
-		lblNewLabel_1_1.setIcon(new ImageIcon("C:\\Users\\tusha\\Downloads\\padlock.png"));
-		lblNewLabel_1_1.setBounds(37, 201, 32, 32);
-		panel_1.add(lblNewLabel_1_1);
+		JLabel passwordIcon = new JLabel("");
+		passwordIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				password.setEchoChar((char)0);
+				passwordIcon.setIcon(new ImageIcon("E:\\GPS\\3RD YEAR GPS\\5TH SEM\\Industrial Training\\VaccineManagementSystem\\src\\AdminIcons\\open-padlock.png"));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				password.setEchoChar('\u25CF');
+				passwordIcon.setIcon(new ImageIcon("E:\\\\GPS\\\\3RD YEAR GPS\\\\5TH SEM\\\\Industrial Training\\\\VaccineManagementSystem\\\\src\\\\AdminIcons\\\\close-padlock.png"));
+			}
+		});
+		
+		passwordIcon.setIcon(new ImageIcon(LoginPage.class.getResource("/AdminIcons/close-padlock.png")));
+		passwordIcon.setBounds(37, 201, 32, 32);
+		panel_1.add(passwordIcon);
 		
 		JLabel loginPageHeadingLabel = new JLabel("SYNCHRONUS");
 		loginPageHeadingLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));

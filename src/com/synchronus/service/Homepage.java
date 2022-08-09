@@ -55,6 +55,7 @@ public class Homepage extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(0, 112, 192), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
 		JPanel panel_1 = new JPanel();

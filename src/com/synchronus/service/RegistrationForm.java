@@ -79,7 +79,7 @@ public class RegistrationForm extends JFrame {
 	 */
 	public RegistrationForm() {
 		getContentPane().setBackground(new Color(176, 224, 230));
-		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) SystemColor.textHighlight));
@@ -87,6 +87,7 @@ public class RegistrationForm extends JFrame {
 		panel.setBackground(SystemColor.inactiveCaptionBorder);
 		panel.setBounds(0, 0, 848, 493);
 		getContentPane().add(panel);
+		getContentPane().setLayout(null);
 		panel.setLayout(null);
 		
 		ButtonGroup g1 = new ButtonGroup();
@@ -176,17 +177,18 @@ public class RegistrationForm extends JFrame {
 		contactNoError.setVisible(false);
 		contactNoError.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contactNoError.setForeground(Color.RED);
-		contactNoError.setBounds(37, 214, 85, 14);
+		contactNoError.setBounds(37, 214, 172, 14);
 		panel.add(contactNoError);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 848, 493);
+		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
 		JLabel emailError = new JLabel("*Invalid Email");
 		emailError.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		emailError.setForeground(Color.RED);
 		emailError.setVisible(false);
-		emailError.setBounds(641, 306, 71, 14);
+		emailError.setBounds(641, 306, 172, 14);
 		panel.add(emailError);
 		
 		JButton btnNewButton_2 = new JButton("X");
@@ -243,48 +245,48 @@ public class RegistrationForm extends JFrame {
 		firstNameError.setVisible(false);
 		firstNameError.setForeground(Color.RED);
 		firstNameError.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		firstNameError.setBounds(37, 110, 93, 14);
+		firstNameError.setBounds(37, 110, 172, 14);
 		panel.add(firstNameError);
 		
 		JLabel lastNameError = new JLabel("*Enter Last Name");
 		lastNameError.setVisible(false);
 		lastNameError.setForeground(Color.RED);
 		lastNameError.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lastNameError.setBounds(325, 110, 85, 14);
+		lastNameError.setBounds(325, 110, 172, 14);
 		panel.add(lastNameError);
 		
 		JLabel genderError = new JLabel("*Choose a Gender.");
 		genderError.setVisible(false);
 		genderError.setForeground(Color.RED);
 		genderError.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		genderError.setBounds(37, 306, 102, 14);
+		genderError.setBounds(37, 306, 172, 14);
 		panel.add(genderError);
 		
 		JLabel addressError = new JLabel("*Enter a Address.");
 		addressError.setVisible(false);
 		addressError.setForeground(Color.RED);
 		addressError.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		addressError.setBounds(325, 306, 93, 14);
+		addressError.setBounds(325, 306, 172, 14);
 		panel.add(addressError);
 		
 		JLabel dateError = new JLabel("*Select a Date");
 		dateError.setVisible(false);
 		dateError.setForeground(Color.RED);
 		dateError.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		dateError.setBounds(641, 110, 85, 14);
+		dateError.setBounds(641, 110, 172, 14);
 		panel.add(dateError);
 		
 		JLabel passwordError = new JLabel("*Enter a Password");
 		passwordError.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		passwordError.setVisible(false);
 		passwordError.setForeground(Color.RED);
-		passwordError.setBounds(325, 214, 123, 14);
+		passwordError.setBounds(325, 214, 172, 14);
 		panel.add(passwordError);
 		
 		JLabel confirmPasswordError = new JLabel("*Password doesn't match");
 		confirmPasswordError.setVisible(false);
 		confirmPasswordError.setForeground(Color.RED);
-		confirmPasswordError.setBounds(641, 214, 141, 14);
+		confirmPasswordError.setBounds(641, 214, 172, 14);
 		panel.add(confirmPasswordError);
 		
 		RSPasswordTextPlaceHolder password = new RSPasswordTextPlaceHolder();
@@ -308,8 +310,15 @@ public class RegistrationForm extends JFrame {
 		mtrlbtnrctnglSubmit.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				Pattern patternFirstNamePattern = Pattern.compile("^[A-Za-z]\\w{5,29}$");
+				Matcher matcherFirstNameMatcher = patternFirstNamePattern.matcher(firstName.getText());
 				boolean f1 , f2;
 				if (firstName.getText().equals("")) {
+					firstNameError.setText("*First Name cannot be empty");
+					firstNameError.setVisible(true);
+				}
+				else if (!(matcherFirstNameMatcher.find()&&matcherFirstNameMatcher.group().equals(firstName.getText()))) {
+					firstNameError.setText("*Can't start with a number");
 					firstNameError.setVisible(true);
 					f1 = false;
 				}else {
@@ -317,7 +326,14 @@ public class RegistrationForm extends JFrame {
 					f1 = true;
 				}
 				
+				Matcher lastNameMatcher = patternFirstNamePattern.matcher(lastName.getText());
+				
 				if (lastName.getText().equals("")) {
+					lastNameError.setText("*First Name cannot be empty");
+					lastNameError.setVisible(true);
+					f1 = false;
+				}else if (!(lastNameMatcher.find()&&lastNameMatcher.group().equals(lastName.getText()))) {
+					lastNameError.setText("*Can't start with a number");
 					lastNameError.setVisible(true);
 					f1 = false;
 				}else {
