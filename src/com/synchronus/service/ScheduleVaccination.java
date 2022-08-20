@@ -18,7 +18,9 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -50,6 +52,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import com.synchronus.dao.BookAppiontment;
 import com.synchronus.dao.InsertIntoDataBase;
 import com.synchronus.dao.SelectStatement;
+import com.synchronus.demo.mailDemo;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JMonthChooser;
 import org.zkoss.calendar.impl.SimpleCalendarModel;
@@ -63,9 +66,9 @@ import rojeru_san.complementos.RSButtonHover;
 import javax.swing.border.CompoundBorder;
 
 public class ScheduleVaccination extends JFrame {
-
-	private JPanel contentPane;
 	private JTextField aadharNumber;
+	private JTextField userName;
+	private JPanel contentPane;
 	
 	
 
@@ -76,7 +79,7 @@ public class ScheduleVaccination extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ScheduleVaccination frame = new ScheduleVaccination();
+					ScheduleVaccination frame = new ScheduleVaccination("");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,7 +92,7 @@ public class ScheduleVaccination extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
-	public ScheduleVaccination() {
+	public ScheduleVaccination(String uName) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 937,500 );
 		contentPane = new JPanel();
@@ -108,8 +111,8 @@ public class ScheduleVaccination extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setVisible(false);
-		panel_2.setBackground(new Color(102,102,255));
-		panel_2.setBounds(0, 49, 220, 701);
+		panel_2.setBackground(Color.DARK_GRAY);
+		panel_2.setBounds(0, 49, 220, 451);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		int x = 220;
@@ -209,18 +212,11 @@ public class ScheduleVaccination extends JFrame {
 		scheduleVaccination.setForeground(Color.green);
 		scheduleVaccination.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
 		
-		JLabel lblNewLabel_1 = new JLabel("Vaccine Management System");
+		JLabel lblNewLabel_1 = new JLabel("Synchronus Health Care");
 		lblNewLabel_1.setForeground(SystemColor.text);
 		lblNewLabel_1.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 25));
-		lblNewLabel_1.setBounds(77, 8, 343, 37);
+		lblNewLabel_1.setBounds(50, 4, 343, 37);
 		panel.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("Welcome,User");
-		lblNewLabel_1_1.setIcon(new ImageIcon(DashBoard.class.getResource("/AdminIcons/icons8_contacts_50px_1.png")));
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 20));
-		lblNewLabel_1_1.setBounds(659, 0, 196, 48);
-		panel.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("X");
 		lblNewLabel_1_2.addMouseListener(new MouseAdapter() {
@@ -244,13 +240,20 @@ public class ScheduleVaccination extends JFrame {
 		panel_2.add(panel_3_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("View Appiontments");
+		lblNewLabel_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new ViewAppiontments(uName).setVisible(true);
+				dispose();
+			}
+		});
 		lblNewLabel_4.setIcon(new ImageIcon(ScheduleVaccination.class.getResource("/AdminIcons/Dose_24px.png")));
 		lblNewLabel_4.setForeground(Color.WHITE);
 		lblNewLabel_4.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
 		lblNewLabel_4.setBounds(10, 0, 200, 40);
 		panel_3_1.add(lblNewLabel_4);
 		
-		lblNewLabel_3.setIcon(new ImageIcon(ScheduleVaccination.class.getResource("/AdminIcons/back.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(ScheduleVaccination.class.getResource("/AdminIcons/back_24px.png")));
 		lblNewLabel_3.setBounds(196, 11, 24, 24);
 		panel_2.add(lblNewLabel_3);
 		
@@ -265,7 +268,7 @@ public class ScheduleVaccination extends JFrame {
 		lblNewLabel_2_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new DashBoard().setVisible(true);
+				new DashBoard(uName).setVisible(true);
 				dispose();
 			}
 		});
@@ -274,20 +277,6 @@ public class ScheduleVaccination extends JFrame {
 		lblNewLabel_2_1.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
 		lblNewLabel_2_1.setBounds(10, 0, 200, 40);
 		panel_3_2.add(lblNewLabel_2_1);
-		
-		JLabel aadharError = new JLabel("");
-		aadharError.setVisible(false);
-		aadharError.setForeground(Color.RED);
-		aadharError.setBounds(487, 17, 140, 14);
-		panel_4.add(aadharError);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setForeground(SystemColor.textHighlight);
-		dateChooser.getCalendarButton().setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 112, 192)));
-		dateChooser.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 112, 192)));
-		dateChooser.setBounds(402, 122, 225, 35);
-		panel_4.add(dateChooser);
 		
 		ButtonGroup rButtonGroup = new ButtonGroup();
 		
@@ -304,7 +293,7 @@ public class ScheduleVaccination extends JFrame {
 		rButtonGroup.add(coVaxin);
 		coVaxin.setForeground(new Color(0,112,192));
 		coVaxin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		coVaxin.setBounds(543, 191, 109, 23);
+		coVaxin.setBounds(543, 191, 84, 23);
 		panel_4.add(coVaxin);
 		
 		JComboBox centerChoose = new JComboBox();
@@ -315,18 +304,11 @@ public class ScheduleVaccination extends JFrame {
 		centerChoose.setBounds(402, 252, 225, 35);
 		panel_4.add(centerChoose);
 		
-		JLabel lblNewLabel_2 = new JLabel("Aadhar No:");
-		lblNewLabel_2.setForeground(SystemColor.textHighlight);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(402, 11, 75, 23);
-		panel_4.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_2_2 = new JLabel("Select Date:");
+		JLabel lblNewLabel_2_2 = new JLabel("Username:");
 		lblNewLabel_2_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2_2.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		lblNewLabel_2_2.setBounds(402, 94, 85, 23);
+		lblNewLabel_2_2.setBounds(402, 11, 75, 23);
 		panel_4.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Vaccine Type:");
@@ -344,11 +326,11 @@ public class ScheduleVaccination extends JFrame {
 		lblNewLabel_2_4.setBounds(397, 226, 65, 23);
 		panel_4.add(lblNewLabel_2_4);
 
-		JLabel dateError = new JLabel("");
-		dateError.setVisible(false);
-		dateError.setForeground(Color.RED);
-		dateError.setBounds(487, 103, 140, 14);
-		panel_4.add(dateError);
+		JLabel userNameError = new JLabel("");
+		userNameError.setVisible(false);
+		userNameError.setForeground(Color.RED);
+		userNameError.setBounds(475, 20, 152, 14);
+		panel_4.add(userNameError);
 		
 		coviShield.setActionCommand("CoviShield");
 		coVaxin.setActionCommand("CoVaxin");
@@ -359,19 +341,19 @@ public class ScheduleVaccination extends JFrame {
 		vaccineError.setBounds(507, 165, 120, 14);
 		panel_4.add(vaccineError);
 		
+		userName = new JTextField();
+		userName.setForeground(SystemColor.textHighlight);
+		userName.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		userName.setColumns(10);
+		userName.setBorder(new LineBorder(new Color(0, 120, 215), 2));
+		userName.setBounds(402, 36, 225, 35);
+		panel_4.add(userName);
+		
 		JLabel centerError = new JLabel("");
 		centerError.setVisible(false);
 		centerError.setForeground(Color.RED);
 		centerError.setBounds(487, 235, 140, 14);
 		panel_4.add(centerError);
-		
-		aadharNumber = new JTextField();
-		aadharNumber.setForeground(SystemColor.textHighlight);
-		aadharNumber.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-		aadharNumber.setBorder(new LineBorder(new Color(0, 120, 215), 2));
-		aadharNumber.setBounds(402, 42, 225, 35);
-		panel_4.add(aadharNumber);
-		aadharNumber.setColumns(10);
 		
 		JLabel stockError = new JLabel("Vaccine Not Available");
 		stockError.setVisible(false);
@@ -380,12 +362,33 @@ public class ScheduleVaccination extends JFrame {
 		stockError.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
 		stockError.setBounds(402, 355, 225, 23);
 		panel_4.add(stockError);
+
+		JLabel lblNewLabel_2 = new JLabel("Aadhar No:");
+		lblNewLabel_2.setBounds(402, 91, 75, 23);
+		panel_4.add(lblNewLabel_2);
+		lblNewLabel_2.setForeground(SystemColor.textHighlight);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		
+		aadharNumber = new JTextField();
+		aadharNumber.setBounds(402, 115, 225, 35);
+		panel_4.add(aadharNumber);
+		aadharNumber.setForeground(SystemColor.textHighlight);
+		aadharNumber.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+		aadharNumber.setBorder(new LineBorder(new Color(0, 120, 215), 2));
+		aadharNumber.setColumns(10);
+		
+		JLabel aadharError = new JLabel("");
+		aadharError.setBounds(487, 97, 140, 14);
+		panel_4.add(aadharError);
+		aadharError.setVisible(false);
+		aadharError.setForeground(Color.RED);
 		
 		RSButtonHover btnhvrBook = new RSButtonHover();
 		btnhvrBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean aadharBoolean = false;
-				boolean dateBoolean ,radiobuttonBoolean , centerBoolean;
+				boolean userNameBoolean = false ,radiobuttonBoolean , centerBoolean;
 				Pattern pattern = Pattern.compile("^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$");
 				Matcher matcher = pattern.matcher(aadharNumber.getText());
 				if (aadharNumber.getText().isEmpty()==true) {
@@ -399,17 +402,23 @@ public class ScheduleVaccination extends JFrame {
 					aadharError.setText("");
 					aadharBoolean=true;
 				}
-				
-				if (((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()){
-					dateError.setText("*Select a Date");
-					dateError.setVisible(true);
-					dateBoolean = false;
-				} else {
-					dateError.setVisible(false);
-					dateBoolean = true;
-
-					
+				Pattern pattern2 = Pattern.compile("[a-zA-Z||0-9]{3,20}@[A-Za-z]{3,10}.(com|in)");
+				Matcher matcher2 = pattern2.matcher(userName.getText());
+				if (userName.getText().equals("")) {
+					userNameError.setText("Enter your username");
+					userNameError.setVisible(true);
+					userNameBoolean=false;
 				}
+				else if (!(matcher2.find()&&matcher2.group().equals(userName.getText()))) {
+					userNameError.setText("Check your username");
+					userNameError.setVisible(true);
+					userNameBoolean = false;;
+				} else {
+					userNameError.setVisible(false);
+					userNameBoolean = true;
+				}
+
+
 				if ((coviShield.isSelected()==false)&&(coVaxin.isSelected()==false)) {
 					vaccineError.setText("*Choose a Vaccine");
 					vaccineError.setVisible(true);
@@ -428,12 +437,16 @@ public class ScheduleVaccination extends JFrame {
 				
 				BookAppiontment bookAppiontment = new BookAppiontment();
 				SelectStatement selectStatement = new SelectStatement();
-				if (aadharBoolean&&dateBoolean&&radiobuttonBoolean&&centerBoolean) {
+				if (aadharBoolean&&userNameBoolean&&radiobuttonBoolean&&centerBoolean) {
+					
+					LocalDate dateObj = LocalDate.now();
+			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			        String date = dateObj.format(formatter);
 					
 					ArrayList<String>arrayList = new ArrayList<String>();
+					arrayList.add(userName.getText());
 					arrayList.add(aadharNumber.getText());
-//					String dateString = ((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
-					arrayList.add(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
+					arrayList.add(date);
 					arrayList.add(rButtonGroup.getSelection().getActionCommand());
 					arrayList.add((String)centerChoose.getSelectedItem());
 					
@@ -443,11 +456,16 @@ public class ScheduleVaccination extends JFrame {
 							if (selectStatement.checkAvalability(rButtonGroup.getSelection().getActionCommand())!= 0) {
 								try{
 									bookAppiontment.insertIntoDataBase(arrayList);
+									selectStatement.updateStock();
+									new mailDemo().sendEmailnotification(userName.getText(),rButtonGroup.getSelection().getActionCommand(),date,(String)centerChoose.getSelectedItem());
+									JOptionPane.showMessageDialog(panel_4, "You have registered Successfully\n Check your email");
+									new DashBoard(userName.getText()).setVisible(true);
+									dispose();
+									
 								}catch (MySQLIntegrityConstraintViolationException e2) {
 									stockError.setText("Please Check your Aadhar No");
 									stockError.setVisible(true);
 								}
-								selectStatement.updateStock();
 								
 							}else {
 								stockError.setText(rButtonGroup.getSelection().getActionCommand()+" are not available");
@@ -476,8 +494,8 @@ public class ScheduleVaccination extends JFrame {
 		btnhvrClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aadharNumber.setText("");
+				userName.setText("");
 				rButtonGroup.clearSelection();
-				dateChooser.setDate(null);
 				centerChoose.setSelectedIndex(-1);
 			}
 		});
@@ -500,6 +518,7 @@ public class ScheduleVaccination extends JFrame {
 		JLabel lblNewLabel_6 = new JLabel("");
 		panel_5.add(lblNewLabel_6);
 		lblNewLabel_6.setIcon(new ImageIcon(ScheduleVaccination.class.getResource("/resources/3885914.jpg")));
+		
 		
 		
 		

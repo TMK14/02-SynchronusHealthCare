@@ -1,10 +1,8 @@
 package com.synchronus.dao;
 
-import java.nio.channels.InterruptedByTimeoutException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -34,11 +32,11 @@ public class BookAppiontment {
 	}
 	public int insertIntoDataBase(ArrayList<String> al) throws SQLException ,Exception{
 		preparedStatement = connection.prepareStatement(insetStatementString);
-		preparedStatement.setString(1, null);
-		preparedStatement.setString(2, al.get(0));
-		preparedStatement.setString(3, al.get(1));
-		preparedStatement.setString(4, al.get(2));
-		preparedStatement.setString(5, al.get(3));
+		preparedStatement.setString(1, al.get(0));
+		preparedStatement.setString(2, al.get(1));
+		preparedStatement.setString(3, al.get(2));
+		preparedStatement.setString(4, al.get(3));
+		preparedStatement.setString(5, al.get(4));
 		
 		
 		rowCount =  preparedStatement.executeUpdate();

@@ -12,5 +12,8 @@
 	<classpathentry kind="lib" path="FJCalendar.jar"/>
 	<classpathentry kind="lib" path="calendar-2.1.0.jar"/>
 	<classpathentry kind="lib" path="RSCalendar.jar"/>
+	<classpathentry kind="lib" path="E:/Software/JButton/AnimatonClass.jar"/>
+	<classpathentry kind="lib" path="E:/Software/JButton/Mail/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/Software/JButton/Mail/javax.mail-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

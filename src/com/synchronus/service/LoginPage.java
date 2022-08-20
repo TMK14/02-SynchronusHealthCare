@@ -46,7 +46,7 @@ import java.awt.event.MouseEvent;
 
 public class LoginPage extends JFrame {
 
-	private String userName , pwd ;
+	private  String userName , pwd ;
 	private JPanel contentPane;
 	private ResultSet reaResultSet = null;
 
@@ -149,7 +149,7 @@ public class LoginPage extends JFrame {
 				boolean1 = userCredential.selectUserCredentials(userName, pwd);
 				if (boolean1 ==true) {
 //					JOptionPane.showMessageDialog(null, "Login Successfull");
-					DashBoard dashBoard = new DashBoard();
+					DashBoard dashBoard = new DashBoard(userName);
 					dashBoard.setVisible(true);
 					setVisible(false);
 				} else {

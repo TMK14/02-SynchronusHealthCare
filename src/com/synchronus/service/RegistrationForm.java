@@ -47,7 +47,7 @@ public class RegistrationForm extends JFrame {
 	private JTextField emailID;
 	private JTextField lastName;
 	private ArrayList<String> aList;
-	private String firstNameString = null;
+	public String firstNameString = null;
 	private String lastNameString = null;
 	private String contactString = null;
 	private String emailString = null;
@@ -207,6 +207,7 @@ public class RegistrationForm extends JFrame {
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.getCalendarButton().setBorder(new LineBorder(new Color(0, 120, 215)));
 		dateChooser.setBorder(new LineBorder(new Color(0, 120, 215)));
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		
 		dateChooser.setBounds(641, 127, 172, 29);
 		panel.add(dateChooser);
@@ -312,7 +313,7 @@ public class RegistrationForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Pattern patternFirstNamePattern = Pattern.compile("^[A-Za-z]\\w{5,29}$");
 				Matcher matcherFirstNameMatcher = patternFirstNamePattern.matcher(firstName.getText());
-				boolean f1 , f2;
+				boolean fName = false , lName , dob , mobileBoolean , passwordBoolean , confirmPassBoolean , genderBoolean,addressBoolean , emailBoolean;
 				if (firstName.getText().equals("")) {
 					firstNameError.setText("*First Name cannot be empty");
 					firstNameError.setVisible(true);
@@ -320,10 +321,10 @@ public class RegistrationForm extends JFrame {
 				else if (!(matcherFirstNameMatcher.find()&&matcherFirstNameMatcher.group().equals(firstName.getText()))) {
 					firstNameError.setText("*Can't start with a number");
 					firstNameError.setVisible(true);
-					f1 = false;
+					fName = false;
 				}else {
 					firstNameError.setVisible(false);
-					f1 = true;
+					fName = true;
 				}
 				
 				Matcher lastNameMatcher = patternFirstNamePattern.matcher(lastName.getText());
@@ -331,39 +332,39 @@ public class RegistrationForm extends JFrame {
 				if (lastName.getText().equals("")) {
 					lastNameError.setText("*First Name cannot be empty");
 					lastNameError.setVisible(true);
-					f1 = false;
+					lName = false;
 				}else if (!(lastNameMatcher.find()&&lastNameMatcher.group().equals(lastName.getText()))) {
 					lastNameError.setText("*Can't start with a number");
 					lastNameError.setVisible(true);
-					f1 = false;
+					lName = false;
 				}else {
 					lastNameError.setVisible(false);
-					f1 = true;
+					lName = true;
 				}
 				
 				if (address.getText().equals("")) {
 					addressError.setVisible(true);
-					f1 = false;
+					addressBoolean = false;
 				}else {
 					addressError.setVisible(false);
-					f1 = true;
+					addressBoolean = true;
 				}
 				
 				if ( (maleRButton.isSelected()==false)&& (femaleRButton.isSelected()==false) && (transRButton.isSelected()==false) ) {
 					genderError.setVisible(true);
-					f1 = false;
+					genderBoolean = false;
 				} else {
 					genderError.setVisible(false);
-					f1 = true;
+					genderBoolean = true;
 				}
 				
 				
 				if (((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()){
 					dateError.setVisible(true);
-					f2 = false;
+					dob = false;
 				} else {
 					dateError.setVisible(false);
-					f2 = true;
+					dob = true;
 					
 				}
 				
@@ -373,10 +374,10 @@ public class RegistrationForm extends JFrame {
 				if (!(matcher.find()&&matcher.group().equals(contactNo.getText()))) {
 					
 					contactNoError.setVisible(true);
-					f1 = false;
+					mobileBoolean = false;
 				} else {
 					contactNoError.setVisible(false);
-					f1 = true;
+					mobileBoolean = true;
 				}
 				
 				pattern = Pattern.compile("[a-zA-Z||0-9]{3,20}@[A-Za-z]{3,10}.(com|in)");
@@ -385,10 +386,10 @@ public class RegistrationForm extends JFrame {
 				if (!(matcher.find()&&matcher.group().equals(emailID.getText()))) {
 					
 					emailError.setVisible(true);
-					f1 = false;;
+					emailBoolean = false;;
 				} else {
 					contactNoError.setVisible(false);
-					f1 = true;
+					emailBoolean = true;
 				}
 				char pass[] = password.getPassword();
 				passwordString = new String(pass);
@@ -396,10 +397,10 @@ public class RegistrationForm extends JFrame {
 				
 				if (passwordString.equals("")) {
 						passwordError.setVisible(true);
-						f1=false;
+						passwordBoolean=false;
 				} else {
 						passwordError.setVisible(false);
-						f1=true;
+						passwordBoolean=true;
 				}
 				char confirmPass[] = confirmPassword.getPassword();
 				String tempString = new String(confirmPass);
@@ -407,10 +408,10 @@ public class RegistrationForm extends JFrame {
 			
 				if ((tempString.equals(passwordString))) {
 					confirmPasswordError.setVisible(false);
-					f1=true;
+					confirmPassBoolean=true;
 				} else {
 					confirmPasswordError.setVisible(true);
-					f1=false;
+					confirmPassBoolean=false;
 				}
 				maleRButton.setActionCommand("Male");
 				femaleRButton.setActionCommand("Female");
@@ -425,18 +426,9 @@ public class RegistrationForm extends JFrame {
 				genderString = g1.getSelection().getActionCommand();
 				addreString = address.getText();
 				
-				aList = new ArrayList<String>();
-				aList.add(firstNameString);
-				aList.add(lastNameString);
-				aList.add(DOB);
-				aList.add(contactString);
-				aList.add(emailString);
-				aList.add(passwordString);
-				aList.add(addreString);
-				aList.add(genderString);
 				InsertIntoDataBase insertIntoDataBase = new InsertIntoDataBase();
 			    rowCount = insertIntoDataBase.insertIntoDataBase(aList);  
-				if (f1 && f2) {
+				if (fName&&lName&&dob&&mobileBoolean&&passwordBoolean&&confirmPassBoolean&&genderBoolean&&addressBoolean&&emailBoolean) {
 					LoginPage loginPage = new LoginPage();
 					loginPage.setVisible(true);
 					setVisible(false);
