@@ -1,48 +1,37 @@
 package com.synchronus.service;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.TextUI;
-
-import com.synchronus.dao.UserCredential;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.TextField;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.border.LineBorder;
+import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.management.loading.PrivateClassLoader;
-import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-import javax.swing.JSeparator;
-import rojerusan.RSButtonPane;
-import rojerusan.RSMetroTextPlaceHolderBeanInfo;
-import rojerusan.RSMetroTextPlaceHolder;
-import rojerusan.RSPasswordTextPlaceHolder;
-import javax.swing.border.MatteBorder;
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
-import rojerusan.RSMaterialButtonRectangle;
-import rojerusan.RSLabelVerticalD;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+
+import com.synchronus.dao.AdminCredentials;
+import com.synchronus.dao.UserCredential;
+
+import rojerusan.RSMaterialButtonRectangle;
+import rojerusan.RSMetroTextPlaceHolder;
+import rojerusan.RSPasswordTextPlaceHolder;
 
 public class LoginPage extends JFrame {
 
@@ -50,6 +39,8 @@ public class LoginPage extends JFrame {
 	private JPanel contentPane;
 	private ResultSet reaResultSet = null;
 
+	UserCredential userCredential = new UserCredential();
+	AdminCredentials adminCredentials = new AdminCredentials();
 	/**
 	 * Launch the application.
 	 */
@@ -135,33 +126,105 @@ public class LoginPage extends JFrame {
 		LoginError.setHorizontalAlignment(SwingConstants.CENTER);
 		LoginError.setForeground(new Color(0, 112, 192));
 		LoginError.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		LoginError.setBounds(70, 315, 273, 35);
+		LoginError.setBounds(70, 329, 273, 35);
 		panel_1.add(LoginError);
+		
+		JLabel emailError = new JLabel("*Invalid Email");
+		emailError.setVisible(false);
+		emailError.setHorizontalAlignment(SwingConstants.TRAILING);
+		emailError.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		emailError.setForeground(SystemColor.textHighlight);
+		emailError.setBounds(170, 104, 173, 20);
+		panel_1.add(emailError);
+		
+		JLabel passwordError = new JLabel("*Invalid Password");
+		passwordError.setVisible(false);
+		passwordError.setHorizontalAlignment(SwingConstants.TRAILING);
+		passwordError.setForeground(SystemColor.textHighlight);
+		passwordError.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		passwordError.setBounds(170, 177, 173, 20);
+		panel_1.add(passwordError);
+
+		JRadioButton rdbtnUser = new JRadioButton("User");
+		rdbtnUser.setActionCommand("User");
+		JRadioButton rdbtnAdmin = new JRadioButton("Admin");
+		rdbtnAdmin.setActionCommand("Admin");
+		
+		ButtonGroup selectionGroup = new ButtonGroup();
+		selectionGroup.add(rdbtnUser);
+		selectionGroup.add(rdbtnAdmin);
 		
 		RSMaterialButtonRectangle mtrlbtnrctnglLogin = new RSMaterialButtonRectangle();
 		mtrlbtnrctnglLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Boolean boolean1;
-				userName = uName.getText();
-				char temp [] = password.getPassword();
-				pwd = new String(temp);
-				UserCredential userCredential = new UserCredential();
-				boolean1 = userCredential.selectUserCredentials(userName, pwd);
-				if (boolean1 ==true) {
-//					JOptionPane.showMessageDialog(null, "Login Successfull");
-					DashBoard dashBoard = new DashBoard(userName);
-					dashBoard.setVisible(true);
-					setVisible(false);
-				} else {
-					JOptionPane.showMessageDialog(null,"Invalid email or password");
-				}	
-
+			if (selectionGroup.getSelection().getActionCommand()=="User") {
+				Pattern	pattern = Pattern.compile("[a-zA-Z||0-9]{3,20}@[A-Za-z]{3,10}.(com|in)");
+				Matcher	matcher = pattern.matcher(uName.getText());
+				
+				Boolean emailBoolean , passwordBoolean ;
+					
+					Boolean boolean1 = false;
+					if (!(matcher.find()&&matcher.group().equals(uName.getText()))) {
+						
+						emailError.setVisible(true);
+						emailBoolean = false;
+					} else {
+						userName = uName.getText();
+						emailError.setVisible(false);
+						emailBoolean = true;
+					}
+					
+					char temp [] = password.getPassword();
+					pwd = new String(temp);
+					
+					if (pwd.equals("")) {
+						passwordError.setVisible(true);
+						passwordBoolean = false;
+					} else {
+						passwordError.setVisible(false);
+						passwordBoolean = true;
+					}
+					
+					
+					if (emailBoolean&&passwordBoolean) {
+						char temp1 [] = password.getPassword();
+						pwd = new String(temp1);
+						
+						boolean1 = userCredential.selectUserCredentials(uName.getText(),pwd );
+						if (boolean1 ==true) {
+	//					JOptionPane.showMessageDialog(null, "Login Successfull");
+							DashBoard dashBoard = new DashBoard(userName);
+							dashBoard.setVisible(true);
+							setVisible(false);
+						}else {
+							JOptionPane.showMessageDialog(null, "Invalid userName or Password");
+						} 
+					
+					}
+	
+				}else {
+						char temp2[] = password.getPassword();
+						String adminPasswordString = new String(temp2);
+						
+						boolean boolean2 = adminCredentials.selectUserCredentials(uName.getText(),adminPasswordString);
+						if (boolean2 ==true) {
+	//					JOptionPane.showMessageDialog(null, "Login Successfull");
+							DashBoardAdmin dashBoard = new DashBoardAdmin(userName);
+							dashBoard.setVisible(true);
+							setVisible(false);
+						}else {
+							JOptionPane.showMessageDialog(null, "Invalid userName or Password");
+						} 
+					
+					
+					
+				}
 			}
 		});
 		
 		mtrlbtnrctnglLogin.setText("LOGIN");
 		mtrlbtnrctnglLogin.setBackground(new Color(0, 112, 192));
-		mtrlbtnrctnglLogin.setBounds(93, 260, 102, 47);
+		mtrlbtnrctnglLogin.setBounds(94, 281, 102, 47);
 		panel_1.add(mtrlbtnrctnglLogin);
 		
 		RSMaterialButtonRectangle mtrlbtnrctnglSignIn = new RSMaterialButtonRectangle();
@@ -172,9 +235,9 @@ public class LoginPage extends JFrame {
 				setVisible(false);
 			}
 		});
-		mtrlbtnrctnglSignIn.setText("SIGN IN");
+		mtrlbtnrctnglSignIn.setText("SIGN UP");
 		mtrlbtnrctnglSignIn.setBackground(new Color(0, 112, 192));
-		mtrlbtnrctnglSignIn.setBounds(221, 260, 102, 47);
+		mtrlbtnrctnglSignIn.setBounds(222, 281, 102, 47);
 		panel_1.add(mtrlbtnrctnglSignIn);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -206,6 +269,19 @@ public class LoginPage extends JFrame {
 		loginPageHeadingLabel.setBounds(70, 46, 273, 35);
 		loginPageHeadingLabel.setForeground(new Color(0 , 112 ,192));
 		panel_1.add(loginPageHeadingLabel);
+		
+		rdbtnUser.setForeground(SystemColor.textHighlight);
+		rdbtnUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		rdbtnUser.setBackground(Color.WHITE);
+		rdbtnUser.setBounds(93, 251, 109, 23);
+		panel_1.add(rdbtnUser);
+		
+		rdbtnAdmin.setForeground(SystemColor.textHighlight);
+		rdbtnAdmin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
+		rdbtnAdmin.setBackground(Color.WHITE);
+		rdbtnAdmin.setBounds(234, 251, 109, 23);
+		panel_1.add(rdbtnAdmin);
+		
 		
 	}
 }

@@ -1,29 +1,21 @@
 package com.synchronus.service;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.border.CompoundBorder;
-import java.awt.event.ActionListener;
-import java.nio.file.FileSystem;
-import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-import javax.swing.border.LineBorder;
-import javax.swing.UIManager;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-import rojerusan.RSMaterialButtonRectangle;
 import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import rojerusan.RSMaterialButtonRectangle;
 
 public class Homepage extends JFrame {
 

@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.synchronus.service.RegistrationForm;
-
 public class InsertIntoDataBase {
 	private int rowCount = 0;
 	
@@ -66,6 +64,17 @@ public class InsertIntoDataBase {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e2) {
+				 e2.printStackTrace();
+			}
 		}
 		return rowCount;
 		

@@ -3,13 +3,12 @@ package com.synchronus.service;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,10 +18,9 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import com.synchronus.dao.AppointmentDeatails;
 import com.synchronus.dao.SelectStatement;
 import com.synchronus.dao.VaccineDetails;
-import javax.swing.border.MatteBorder;
-import java.awt.Component;
 
 public class DashBoard extends JFrame {
 	
@@ -32,7 +30,7 @@ public class DashBoard extends JFrame {
 	ArrayList<String> arrayList = new ArrayList<String>();	
 	ArrayList<Integer> aList = new ArrayList<>();	
 	private static String userName;
-	
+	private ResultSet rset;
 	
 	/**
 	 * Launch the application.
@@ -139,6 +137,7 @@ public class DashBoard extends JFrame {
 								Thread.sleep(1);
 								panel_2.setSize(i , 702);
 							}
+							centerPanel.setLocation(130,71);
 							
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(null, e);
@@ -252,6 +251,27 @@ public class DashBoard extends JFrame {
 		lblNewLabel_2_1.setBounds(10, 0, 200, 40);
 		panel_3_2.add(lblNewLabel_2_1);
 		
+		JPanel panel_3_3 = new JPanel();
+		panel_3_3.setLayout(null);
+		panel_3_3.setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
+		panel_3_3.setBackground(new Color(102, 102, 255));
+		panel_3_3.setBounds(0, 239, 220, 40);
+		panel_2.add(panel_3_3);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("Sign Out");
+		lblNewLabel_2_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Homepage().setVisible(true);
+				setVisible(false);
+			}
+		});
+		lblNewLabel_2_2.setIcon(new ImageIcon(DashBoard.class.getResource("/AdminIcons/logout.png")));
+		lblNewLabel_2_2.setForeground(Color.WHITE);
+		lblNewLabel_2_2.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
+		lblNewLabel_2_2.setBounds(10, 0, 200, 40);
+		panel_3_3.add(lblNewLabel_2_2);
+		
 		SelectStatement selectStatement = new SelectStatement();
 		aList = selectStatement.checkAvalability();
 		
@@ -278,7 +298,7 @@ public class DashBoard extends JFrame {
 		lblNewLabel_6_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_6_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		lblNewLabel_6_1.setAlignmentY(0.0f);
-		lblNewLabel_6_1.setBounds(20, 84, 82, 22);
+		lblNewLabel_6_1.setBounds(20, 67, 82, 22);
 		centerPanel.add(lblNewLabel_6_1);
 		
 		JLabel lblNewLabel_6_2 = new JLabel("Email:");
@@ -286,7 +306,7 @@ public class DashBoard extends JFrame {
 		lblNewLabel_6_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_6_2.setForeground(SystemColor.textHighlight);
 		lblNewLabel_6_2.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-		lblNewLabel_6_2.setBounds(20, 152, 82, 22);
+		lblNewLabel_6_2.setBounds(20, 114, 82, 22);
 		centerPanel.add(lblNewLabel_6_2);
 		
 		JLabel name = new JLabel((String) null);
@@ -299,13 +319,13 @@ public class DashBoard extends JFrame {
 		mobileNo.setForeground(SystemColor.textHighlight);
 		mobileNo.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		mobileNo.setAlignmentY(0.0f);
-		mobileNo.setBounds(122, 84, 185, 22);
+		mobileNo.setBounds(122, 67, 185, 22);
 		centerPanel.add(mobileNo);
 		
 		JLabel email = new JLabel((String) null);
 		email.setForeground(SystemColor.textHighlight);
 		email.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-		email.setBounds(122, 152, 219, 22);
+		email.setBounds(122, 114, 219, 22);
 		centerPanel.add(email);
 		
 		JSeparator separator = new JSeparator();
@@ -333,41 +353,31 @@ public class DashBoard extends JFrame {
 		lblNewLabel_6_5.setForeground(SystemColor.textHighlight);
 		lblNewLabel_6_5.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		lblNewLabel_6_5.setAlignmentY(0.0f);
-		lblNewLabel_6_5.setBounds(464, 84, 82, 22);
+		lblNewLabel_6_5.setBounds(464, 67, 82, 22);
 		centerPanel.add(lblNewLabel_6_5);
 		
 		JLabel gender = new JLabel((String) null);
 		gender.setForeground(SystemColor.textHighlight);
 		gender.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
 		gender.setAlignmentY(0.0f);
-		gender.setBounds(567, 84, 185, 22);
+		gender.setBounds(567, 67, 185, 22);
 		centerPanel.add(gender);
-		
-		JLabel lblNewLabel_6_3 = new JLabel("DOB:");
-		lblNewLabel_6_3.setHorizontalTextPosition(SwingConstants.RIGHT);
-		lblNewLabel_6_3.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_6_3.setForeground(SystemColor.textHighlight);
-		lblNewLabel_6_3.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-		lblNewLabel_6_3.setBounds(464, 152, 82, 22);
-		centerPanel.add(lblNewLabel_6_3);
-		
-		JLabel DOB = new JLabel((String) null);
-		DOB.setForeground(SystemColor.textHighlight);
-		DOB.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
-		DOB.setBounds(567, 152, 185, 22);
-		centerPanel.add(DOB);
 		try {
 			firstName.setVisible(true);
 			arrayList =	vaccineDetails.userDeatils(userName);
 			System.out.println(arrayList.get(0));
 			firstName.setText("Welcome "+arrayList.get(0));
 			name.setText(arrayList.get(0).toUpperCase());
-			
-			DOB.setText(arrayList.get(1));
 			mobileNo.setText(arrayList.get(2));
 			email.setText(arrayList.get(3));
 			gender.setText(arrayList.get(4));
 			address.setText(arrayList.get(5));
+			
+			
+			AppointmentDeatails appointmentDeatails = new AppointmentDeatails();
+			
+			
+			
 			
 			
 		

@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="E:/Software/JButton/AnimatonClass.jar"/>
 	<classpathentry kind="lib" path="E:/Software/JButton/Mail/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="E:/Software/JButton/Mail/javax.mail-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/tusha/Downloads/rs2xml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

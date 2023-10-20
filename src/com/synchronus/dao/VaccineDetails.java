@@ -1,14 +1,11 @@
 package com.synchronus.dao;
 
-import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class VaccineDetails {
 	private ArrayList<String> aList = new ArrayList<String>();
@@ -67,6 +64,8 @@ public class VaccineDetails {
     	aList.add(reaResultSet.getString("Date"));
     	aList.add(reaResultSet.getString("Vaccine_Choice"));
     	aList.add(reaResultSet.getString("Vaccine_Center"));
+    	aList.add(reaResultSet.getString("VaccineStatus"));
+    	System.out.println(reaResultSet.getString("VaccineStatus"));
     	}
     	
     	try {

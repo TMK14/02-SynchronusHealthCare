@@ -1,69 +1,42 @@
 package com.synchronus.service;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
 import java.awt.Font;
-import java.awt.Label;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.UIManager;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import rojerusan.RSMaterialButtonRectangle;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import javax.swing.ButtonGroup;
-
-import java.awt.event.ActionListener;
-import javax.swing.border.LineBorder;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
-import rojerusan.RSMetroTextPlaceHolder;
-import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import com.toedter.components.JSpinField;
-import com.toedter.calendar.JDateChooser;
-import com.toedter.components.JLocaleChooser;
-import com.toedter.calendar.JDayChooser;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.synchronus.dao.AppiontmentStatus;
 import com.synchronus.dao.BookAppiontment;
-import com.synchronus.dao.InsertIntoDataBase;
 import com.synchronus.dao.SelectStatement;
 import com.synchronus.demo.mailDemo;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JMonthChooser;
-import org.zkoss.calendar.impl.SimpleCalendarModel;
-import rojeru_san.componentes.RSCalendar;
-import rojeru_san.componentes.RSDateChooser;
-import rojerusan.RSComboMetro;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+
 import rojeru_san.complementos.RSButtonHover;
-import javax.swing.border.CompoundBorder;
 
 public class ScheduleVaccination extends JFrame {
 	private JTextField aadharNumber;
@@ -105,14 +78,14 @@ public class ScheduleVaccination extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
 		panel_4.setBorder(new LineBorder(new Color(0, 120, 215), 3, true));
-		panel_4.setBounds(239, 78, 675, 396);
+		panel_4.setBounds(150, 78, 675, 396);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setVisible(false);
 		panel_2.setBackground(Color.DARK_GRAY);
-		panel_2.setBounds(0, 49, 220, 451);
+		panel_2.setBounds(0, 49, 37, 451);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		int x = 220;
@@ -197,7 +170,7 @@ public class ScheduleVaccination extends JFrame {
 
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(null);
+		panel_3.setBorder(new LineBorder(Color.DARK_GRAY, 2));
 		panel_3.setBounds(0, 109, 220, 40);
 		panel_2.add(panel_3);
 		panel_3.setBackground(new Color(102,102,255));
@@ -233,7 +206,7 @@ public class ScheduleVaccination extends JFrame {
 		panel.add(lblNewLabel);
 		
 		JPanel panel_3_1 = new JPanel();
-		panel_3_1.setBorder(null);
+		panel_3_1.setBorder(new LineBorder(Color.DARK_GRAY, 2));
 		panel_3_1.setLayout(null);
 		panel_3_1.setBackground(new Color(102, 102, 255));
 		panel_3_1.setBounds(0, 173, 220, 40);
@@ -258,7 +231,7 @@ public class ScheduleVaccination extends JFrame {
 		panel_2.add(lblNewLabel_3);
 		
 		JPanel panel_3_2 = new JPanel();
-		panel_3_2.setBorder(null);
+		panel_3_2.setBorder(new LineBorder(Color.DARK_GRAY, 2));
 		panel_3_2.setLayout(null);
 		panel_3_2.setBackground(new Color(102, 102, 255));
 		panel_3_2.setBounds(0, 46, 220, 40);
@@ -277,6 +250,27 @@ public class ScheduleVaccination extends JFrame {
 		lblNewLabel_2_1.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
 		lblNewLabel_2_1.setBounds(10, 0, 200, 40);
 		panel_3_2.add(lblNewLabel_2_1);
+		
+		JPanel panel_3_3 = new JPanel();
+		panel_3_3.setLayout(null);
+		panel_3_3.setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
+		panel_3_3.setBackground(new Color(102, 102, 255));
+		panel_3_3.setBounds(0, 237, 220, 40);
+		panel_2.add(panel_3_3);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Sign Out");
+		lblNewLabel_2_2_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Homepage().setVisible(true);
+				dispose();
+			}
+		});
+		lblNewLabel_2_2_1.setIcon(new ImageIcon(ScheduleVaccination.class.getResource("/AdminIcons/logout.png")));
+		lblNewLabel_2_2_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
+		lblNewLabel_2_2_1.setBounds(10, 0, 200, 40);
+		panel_3_3.add(lblNewLabel_2_2_1);
 		
 		ButtonGroup rButtonGroup = new ButtonGroup();
 		
@@ -360,7 +354,7 @@ public class ScheduleVaccination extends JFrame {
 		stockError.setHorizontalAlignment(SwingConstants.CENTER);
 		stockError.setForeground(SystemColor.textHighlight);
 		stockError.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 14));
-		stockError.setBounds(402, 355, 225, 23);
+		stockError.setBounds(352, 355, 313, 23);
 		panel_4.add(stockError);
 
 		JLabel lblNewLabel_2 = new JLabel("Aadhar No:");
@@ -449,16 +443,28 @@ public class ScheduleVaccination extends JFrame {
 					arrayList.add(date);
 					arrayList.add(rButtonGroup.getSelection().getActionCommand());
 					arrayList.add((String)centerChoose.getSelectedItem());
+					arrayList.add("Booked");
 					
 					
 					try {
 						if (bookAppiontment.getConnection()) {
-							if (selectStatement.checkAvalability(rButtonGroup.getSelection().getActionCommand())!= 0) {
+							AppiontmentStatus appiontmentStatus = new AppiontmentStatus();
+							String checkStatuString  = appiontmentStatus.checkAppointmentStatus(uName);
+							System.out.println(checkStatuString);
+							
+							if (checkStatuString.equals("Booked")) {
+								stockError.setText("You have already booked the vaccine");
+								stockError.setVisible(true);
+							}else if (checkStatuString.equalsIgnoreCase("Dose 1")) {
+								stockError.setText("You have already taken the Dose 1");
+								stockError.setVisible(true);
+							}
+							else if (selectStatement.checkAvalability(rButtonGroup.getSelection().getActionCommand())!= 0) {
 								try{
 									bookAppiontment.insertIntoDataBase(arrayList);
 									selectStatement.updateStock();
 									new mailDemo().sendEmailnotification(userName.getText(),rButtonGroup.getSelection().getActionCommand(),date,(String)centerChoose.getSelectedItem());
-									JOptionPane.showMessageDialog(panel_4, "You have registered Successfully\n Check your email");
+									JOptionPane.showMessageDialog(null, "You have registered Successfully\n Check your email");
 									new DashBoard(userName.getText()).setVisible(true);
 									dispose();
 									

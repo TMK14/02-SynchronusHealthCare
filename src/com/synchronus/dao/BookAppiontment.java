@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BookAppiontment {
@@ -12,11 +11,11 @@ public class BookAppiontment {
 	private static String url = "jdbc:mysql:///synchronus healthcare";
 	private static String userName = "root";
 	private static String password = "";
-	private static String insetStatementString = "insert into vaccinedetails values(?,?,?,?,?)";
+	private static String insetStatementString = "insert into vaccinedetails (`Email`,`Aadhar_No`, `Date`, `Vaccine_Choice`, `Vaccine_Center` , `VaccineStatus`) values(?,?,?,?,?,?)";
 	private int rowCount = 0;
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
-	Statement statement = null;
+	
 	public boolean getConnection() throws ClassNotFoundException, SQLException,Exception {
 		Class.forName(driverName);
 		connection = DriverManager.getConnection(url,userName,password);
@@ -37,9 +36,21 @@ public class BookAppiontment {
 		preparedStatement.setString(3, al.get(2));
 		preparedStatement.setString(4, al.get(3));
 		preparedStatement.setString(5, al.get(4));
+		preparedStatement.setString(6, al.get(5));
 		
 		
 		rowCount =  preparedStatement.executeUpdate();
+		
+		try {
+			preparedStatement.close();
+			
+		} catch (SQLException e) {
+			 e.printStackTrace();
+		}try {
+			connection.close();
+		} catch (SQLException e) {
+			 e.printStackTrace();
+		}
 		
 		
 		return rowCount;

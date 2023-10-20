@@ -2,53 +2,33 @@ package com.synchronus.service;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
 import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
-
-import java.awt.event.ActionListener;
-import javax.swing.border.LineBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.border.MatteBorder;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import com.toedter.calendar.JDateChooser;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import com.synchronus.dao.BookAppiontment;
-import com.synchronus.dao.SelectStatement;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+
 import com.synchronus.dao.VaccineDetails;
 
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import rojeru_san.complementos.RSButtonHover;
-import javax.swing.border.CompoundBorder;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import rojeru_san.complementos.RSTableMetro;
-import java.awt.FlowLayout;
 import rojerusan.RSMetroTextPlaceHolder;
-import rojerusan.RSMaterialButtonRectangleBeanInfo;
-import rojerusan.RSMaterialButtonRectangle;
 
 public class ViewAppiontments extends JFrame {
 	private static String driverName = "com.mysql.jdbc.Driver";
@@ -272,6 +252,27 @@ public class ViewAppiontments extends JFrame {
 		lblNewLabel_2_1.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
 		lblNewLabel_2_1.setBounds(10, 0, 200, 40);
 		panel_3_2.add(lblNewLabel_2_1);
+		
+		JPanel panel_3_3 = new JPanel();
+		panel_3_3.setLayout(null);
+		panel_3_3.setBorder(new LineBorder(Color.DARK_GRAY, 3, true));
+		panel_3_3.setBackground(new Color(102, 102, 255));
+		panel_3_3.setBounds(0, 233, 220, 40);
+		panel_2.add(panel_3_3);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Sign Out");
+		lblNewLabel_2_2_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Homepage().setVisible(true);
+				dispose();
+			}
+		});
+		lblNewLabel_2_2_1.setIcon(new ImageIcon(ViewAppiontments.class.getResource("/AdminIcons/logout.png")));
+		lblNewLabel_2_2_1.setForeground(Color.WHITE);
+		lblNewLabel_2_2_1.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 17));
+		lblNewLabel_2_2_1.setBounds(10, 0, 200, 40);
+		panel_3_3.add(lblNewLabel_2_2_1);
 				
 						
 						JLabel lblNewLabel_2 = new JLabel("Schedule");
@@ -345,6 +346,12 @@ public class ViewAppiontments extends JFrame {
 								separator.setBounds(282, 153, 3, 200);
 								centerPanel.add(separator);
 								
+								JLabel dose = new JLabel("");
+								dose.setHorizontalAlignment(SwingConstants.LEFT);
+								dose.setForeground(SystemColor.textHighlight);
+								dose.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+								dose.setBounds(292, 320, 234, 33);
+								centerPanel.add(dose);
 								
 								RSButtonHover btnhvrViewAppointments = new RSButtonHover();
 								btnhvrViewAppointments.setBounds(356, 27, 170, 35);
@@ -360,6 +367,8 @@ public class ViewAppiontments extends JFrame {
 									        DateLabel.setText(arrayList.get(1));
 									        VaccineLabel.setText(arrayList.get(2));
 									        CenterLabel.setText(arrayList.get(3));
+									        dose.setText(arrayList.get(4));
+									        
 										} catch (Exception e1) {
 											// TODO Auto-generated catch block
 											e1.printStackTrace();
@@ -370,6 +379,14 @@ public class ViewAppiontments extends JFrame {
 								btnhvrViewAppointments.setText("View Appointments");
 								btnhvrViewAppointments.setBorder(new CompoundBorder(new LineBorder(new Color(0, 120, 215), 2, true), new LineBorder(new Color(0, 120, 215), 2, true)));
 								btnhvrViewAppointments.setBackground(SystemColor.textHighlight);
+								
+								JLabel lblNewLabel_2_5_1 = new JLabel("Dose:");
+								lblNewLabel_2_5_1.setHorizontalAlignment(SwingConstants.TRAILING);
+								lblNewLabel_2_5_1.setForeground(SystemColor.textHighlight);
+								lblNewLabel_2_5_1.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 16));
+								lblNewLabel_2_5_1.setBounds(162, 326, 110, 33);
+								centerPanel.add(lblNewLabel_2_5_1);
+								
 								
 		
 		
